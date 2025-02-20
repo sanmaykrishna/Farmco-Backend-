@@ -12,6 +12,10 @@ import { LocationModule } from './location/location.module';
 import { Location } from './location/entities/location.entity';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entities/product.entity';
+import { CartModule } from './cart/cart.module';
+import { Cart } from './cart/entities/cart.entity';
+import { CollabModule } from './collab/collab.module';
+import { Collab } from './collab/entities/collab.entity';
 
 @Module({
   imports: [UsersModule, TypeOrmModule.forRoot({
@@ -21,9 +25,9 @@ import { Product } from './product/entities/product.entity';
     username:'postgres',
     password:'postgres',
     database:'farmco',
-    entities:[User,Item,Location,Product],
+    entities:[User,Item,Location,Product,Cart,Collab],
     synchronize:true,
-  }),UsersModule, ItemModule, LocationModule, ProductModule],
+  }),UsersModule, ItemModule, LocationModule, ProductModule, CartModule, CollabModule],
   controllers: [AppController],
   providers: [AppService],
 })
