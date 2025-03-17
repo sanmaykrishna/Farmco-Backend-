@@ -37,6 +37,18 @@ export class ProductService {
     return this.productRepository.findOne({ where: { product_id: id } });
   }
 
+  async updateQuantities(updateQuantitiesDto: { product_id: number; quantity: number }[]) {
+    for (const { product_id, quantity } of updateQuantitiesDto) {
+      const product = await this.productRepository.findOne({ where: { product_id } });
+  
+      if (product) {
+        product.quantity -= quantity;
+        if (product.quantity < 0) product.quantity = 0;
+        await this.productRepository.save(product);
+      }
+    }
+    return { message: 'Quantities updated successfully' };
+  }
   async remove(id: number): Promise<void> {
     await this.productRepository.delete(id);
   }

@@ -9,9 +9,9 @@ export class CollabController {
 
   @Post()
   async create(@Body() createCollabDto: CreateCollabDto) {
-    console.log('Received DTO:', createCollabDto); // Debug log
-    return this.collabService.create(createCollabDto);
-  }
+  console.log('Received DTO:', createCollabDto); // Debug log
+  return this.collabService.create(createCollabDto);
+}
 
   @Get()
   async findAll() {

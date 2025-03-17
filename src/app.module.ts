@@ -16,6 +16,11 @@ import { CartModule } from './cart/cart.module';
 import { Cart } from './cart/entities/cart.entity';
 import { CollabModule } from './collab/collab.module';
 import { Collab } from './collab/entities/collab.entity';
+import { ProfileModule } from './profile/profile.module';
+import { Profile } from './profile/entities/profile.entity';
+import { Quantity } from './quantity/entities/quantity.entity';
+import { QuantityModule } from './quantity/quantity.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [UsersModule, TypeOrmModule.forRoot({
@@ -25,9 +30,12 @@ import { Collab } from './collab/entities/collab.entity';
     username:'postgres',
     password:'postgres',
     database:'farmco',
-    entities:[User,Item,Location,Product,Cart,Collab],
+    entities:[User,Item,Location,Product,Cart,Collab,Profile,Quantity],
     synchronize:true,
-  }),UsersModule, ItemModule, LocationModule, ProductModule, CartModule, CollabModule],
+  }),UsersModule, ItemModule, LocationModule, ProductModule, CartModule, CollabModule, ProfileModule, QuantityModule,JwtModule.register({
+    secret: process.env.JWT_SECRET || "a9f8e7d6c5b4a3f2g1h0i9j8k7l6m5n4", // Use environment variables for security
+      signOptions: { expiresIn: '1h' },
+  })],
   controllers: [AppController],
   providers: [AppService],
 })

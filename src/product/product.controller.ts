@@ -37,9 +37,16 @@ export class ProductController {
     return this.productService.update(+id, updateProductDto);
   }
 
+  @Post('update-quantities')
+  async updateQuantities(@Body() updateQuantitiesDto: { product_id: number; quantity: number }[]) {
+    return this.productService.updateQuantities(updateQuantitiesDto);
+  }
+
   // Delete a product by ID
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.productService.remove(+id);
   }
+  
+
 }

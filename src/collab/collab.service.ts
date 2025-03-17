@@ -12,9 +12,19 @@ export class CollabService {
     private readonly collabRepository: Repository<Collab>,
   ) {}
 
-  async create(createCollabDto: CreateCollabDto): Promise<Collab> {
-    const newCollab = this.collabRepository.create(createCollabDto);
-    return await this.collabRepository.save(newCollab);
+  async create(createCollabDto: CreateCollabDto): Promise<{ collab_id: number }> {
+    try {
+      console.log('Received DTO:', createCollabDto); // Debug log
+      const newCollab = this.collabRepository.create(createCollabDto);
+      console.log('Mapped Entity:', newCollab);
+      const savedCollab = await this.collabRepository.save(newCollab); // Save to DB
+  
+      console.log('Saved Collab:', savedCollab);
+      return { collab_id: savedCollab.collab_id }; // Return only the collab_id
+    } catch (error) {
+      console.error('Error saving Collab:', error);
+      throw new Error('Unable to save Collab');
+    }
   }
 
   async findAll(): Promise<Collab[]> {
